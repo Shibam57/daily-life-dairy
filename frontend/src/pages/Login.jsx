@@ -58,20 +58,20 @@ function Login() {
         });
 
       }
-      else {
-        if (result.message === "Please verify your email before logging in.") {
-          toast.warn("⚠️ Please verify your email before logging in.", {
-            autoClose: 3000
-          });
-          return;
-        }
-        else{
-          toast.error(result.message || "Login failed. Please try again.", {
-          autoClose: 2000
-          });
-          return;
-        }
-      }
+      // else {
+      //   if (result.message === "Please verify your email before logging in.") {
+      //     toast.warn("⚠️ Please verify your email before logging in.", {
+      //       autoClose: 3000
+      //     });
+      //     return;
+      //   }
+      //   else{
+      //     toast.error(result.message || "Login failed. Please try again.", {
+      //     autoClose: 2000
+      //     });
+      //     return;
+      //   }
+      // }
 
     } catch (error) {
       console.error("Login Error:", error);
