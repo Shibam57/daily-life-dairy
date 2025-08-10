@@ -40,7 +40,6 @@ function Login() {
     e.preventDefault();
     try {
       const resp = await axios.post("/api/v1/users/login",loginInfo,{
-        withCredentials: true,
         headers: {
           "Content-Type": "application/json"
         }
@@ -66,11 +65,12 @@ function Login() {
           });
           return;
         }
-
-        toast.error(result.message || "Login failed. Please try again.", {
+        else{
+          toast.error(result.message || "Login failed. Please try again.", {
           autoClose: 2000
-        });
-        return;
+          });
+          return;
+        }
       }
 
     } catch (error) {
