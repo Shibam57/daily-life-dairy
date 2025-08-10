@@ -2,11 +2,14 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "https://daily-life-dairy.onrender.com"
+      '/api': {
+        target: 'https://daily-life-diary.onrender.com', 
+        changeOrigin: true,
+        secure: false
+      }
     }
   },
   plugins: [tailwindcss(),react()],
