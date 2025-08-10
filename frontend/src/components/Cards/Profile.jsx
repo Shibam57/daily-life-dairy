@@ -84,7 +84,7 @@ function Profile() {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/api/v1/users/logout", {}, { withCredentials: true });
+      await axios.post("/api/v1/users/logout", {}, { withCredentials: true });
 
       toast.success("Logged out successfully!");
       navigate('/login')

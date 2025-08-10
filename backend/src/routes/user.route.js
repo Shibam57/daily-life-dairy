@@ -9,9 +9,9 @@ router.post('/register', upload.fields([{
     name: 'avatar',
     maxCount: 1
 }]), registerUser)
-router.get("/verify-email/:token", verifyEmail)
 
 router.post('/login', loginUser)
+router.get("/verify-email/:token", verifyEmail)
 router.post('/logout', verifyJWT, logoutUser)
 router.post('/refresh-token', refreshAccessToken)
 router.post('/change-password', verifyJWT, changeUserPassword)

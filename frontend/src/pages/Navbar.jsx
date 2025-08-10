@@ -6,7 +6,7 @@ import SearchBar from '../components/Search/SearchBar';
 import { getCurrentUser } from '../components/Cards/userApi';
 import image from '../assets/large.svg';
 import NavProfile from '../components/Cards/NavProfile';
-import { Menu, X } from 'lucide-react';
+import { Menu, User, X } from 'lucide-react';
 import axios from 'axios';
 
 function Navbar({ onSearchResults }) {
