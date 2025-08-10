@@ -47,7 +47,7 @@ function Login() {
 
       const result = resp.data;
       
-      if (!result.success) {
+      if (result.ok) {
         const token = result.data.accessToken;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(result.data.user));
