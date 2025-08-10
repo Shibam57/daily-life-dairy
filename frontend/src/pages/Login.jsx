@@ -47,7 +47,17 @@ function Login() {
         credentials: 'include'
       });
 
-      const result = await resp.json();
+      const text = await resp.text(); 
+      let result = {};
+
+      if (text) {
+        try {
+          result = JSON.parse(text); 
+        } catch (err) {
+          console.error("Response is not valid JSON:", text);
+          throw err;
+        }
+      }
 
       if (result.success) {
         const token = result.data.accessToken;
