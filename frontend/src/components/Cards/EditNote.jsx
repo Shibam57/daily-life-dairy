@@ -38,7 +38,7 @@ const EditNote = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5000/api/v1/notes/update-note/${noteId}`,
+        `/api/v1/notes/update-note/${noteId}`,
         { title: note.title, description: note.description },
         { withCredentials: true }
       );

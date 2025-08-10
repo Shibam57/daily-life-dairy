@@ -56,7 +56,7 @@ function Profile() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/v1/users/update-avatar/${userInfo._id}`,data,{
+        `/api/v1/users/update-avatar/${userInfo._id}`,data,{
           
           withCredentials: true
         }
