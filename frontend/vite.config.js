@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "https://daily-life-dairy.onrender.com"
+      "/api": "http://localhost:5000"
     }
   },
   plugins: [tailwindcss(),react()],
