@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import axios from "axios";
 
 const fadeInStagger = (i) => ({
   hidden: { opacity: 0, y: 20 },
@@ -38,27 +39,15 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resp = await fetch("/api/v1/users/login", {
-        method: "POST",
+      const resp = await axios.post("/api/v1/users/login",loginInfo,{
+        withCredentials: true,
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginInfo),
-        credentials: 'include'
+          "Content-Type": "application/json"
+        }
       });
 
-      const text = await resp.text(); 
-      let result = {};
-
-      if (text) {
-        try {
-          result = JSON.parse(text); 
-        } catch (err) {
-          console.error("Response is not valid JSON:", text);
-          throw err;
-        }
-      }
-
+      const result = resp.data;
+      
       if (result.success) {
         const token = result.data.accessToken;
         localStorage.setItem('token', token);

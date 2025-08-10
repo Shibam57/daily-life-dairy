@@ -68,7 +68,7 @@ const registerUser = asyncHandler(async(req, res)=>{
             <a href="${verificationURL}">${verificationURL}</a>`
         });
 
-        return res.status(200).json(new ApiResponse(200, existingUser, "Account exists but not verified. New verification email sent."));
+        return res.status(200).json(new ApiResponse(200, existingUser.select("-password"), "Account exists but not verified. New verification email sent."));
     }
 
     const avatarLocalPath = req.files?.avatar?.[0]?.path;
@@ -114,26 +114,26 @@ const registerUser = asyncHandler(async(req, res)=>{
     ));
 })
 
-const verifyEmail = asyncHandler(async(req, res)=>{
-    const {token} = req.params
+const verifyEmail = asyncHandler(async (req, res) => {
+  const { token } = req.params;
 
-    if (!token){
-        throw new ApiError(400, "Verification token missing");
-    }
+  if (!token) {
+    throw new ApiError(400, "Verification token missing");
+  }
 
-    const user = await User.findOne({verificationToken: token});
+  const user = await User.findOne({ verificationToken: token });
 
-    if(!user){
-        throw new ApiError(400, "Inalid or expired verification token")
-    }
+  if (!user) {
+    throw new ApiError(400, "Invalid or expired verification token");
+  }
 
-    user.isVerified = true
-    user.verificationToken = undefined;
+  user.isVerified = true;
+  user.verificationToken = undefined;
 
-    await user.save({validateBeforeSave: false})
+  await user.save({ validateBeforeSave: false });
 
-    res.redirect(`${process.env.CLIENT_URL}/login?verified=true`)
-})
+  res.redirect(`${process.env.CLIENT_URL}/verify-email-success`);
+});
 
 const loginUser = asyncHandler(async(req, res)=>{
     const {username, email, password} = req.body;

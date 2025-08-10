@@ -63,17 +63,18 @@ function Signup() {
         data.append('avatar', avatar.avatar)
       }
 
-      const resp = await fetch("/api/v1/users/register",{
-        method: "POST",
-        body: data,
-        credentials: "include"
-      })
-      const result = await resp.json();
+      const resp = await axios.post("/api/v1/users/register",data,{
+        withCredentials: true, 
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      const result = resp.data;
 
       if(result.success){
         toast.success("Account created! Please check your email to verify.", {
           autoClose: 2000,
-          onClose: () => navigate('/login')
+          onClose: () => navigate('/login?verified=true')
         });
       }
       else{
@@ -97,21 +98,21 @@ function Signup() {
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-500 via-fuchsia-500 to-purple-500 text-white px-4">
     
     {/* Background bubbles */}
-    {bubble("w-24 h-24 top-5 left-5 bg-blue-400")}
-    {bubble("w-16 h-16 top-16 left-16 bg-blue-400")}
-    {bubble("w-20 h-20 bottom-5 right-5 bg-fuchsia-400")}
-    {bubble("w-12 h-12 bottom-10 right-10 bg-fuchsia-400")}
+    {bubble("w-40 h-40 top-10 left-10 bg-blue-400")}
+    {bubble("w-20 h-20 top-20 left-20 bg-blue-400")}
+    {bubble("w-32 h-32 bottom-10 right-10 bg-fuchsia-400")}
+    {bubble("w-16 h-16 bottom-18 right-18 bg-fuchsia-400")}
 
     <div
       className="absolute flex justify-center z-10 w-full max-w-md sm:max-w-lg md:max-w-xl"
-      style={{ height: "auto" }}
+      style={{ height: "720px" }}
     >
       {/* SVG Background */}
-      <svg viewBox="0 0 500 690" className="absolute w-full h-auto">
+      <svg viewBox="0 0 500 700" className="absolute w-full h-auto">
         <circle cx="250" cy="10" r="220" fill="#9333ea" />
       </svg>
-      <svg viewBox="0 0 500 690" className="absolute w-full h-auto">
-        <circle cx="250" cy="690" r="220" fill="#9333ea" />
+      <svg viewBox="0 0 560 700" className="absolute w-full h-auto">
+        <circle cx="280" cy="700" r="240" fill="#9333ea" />
       </svg>
 
       <AnimatePresence>
@@ -136,12 +137,12 @@ function Signup() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-white text-xl sm:text-2xl font-bold text-center mb-6 drop-shadow-lg"
+            className="text-white text-xl sm:text-2xl font-bold text-center mb-4 drop-shadow-lg"
           >
             Sign Up
           </motion.h1>
 
-          <form className="space-y-6 w-full px-2 sm:px-0" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {dataName.map((field, i) => (
               <motion.div
                 key={field}
@@ -150,7 +151,7 @@ function Signup() {
                 initial="hidden"
                 animate="visible"
               >
-                <div className="relative w-full -mb-1.5">
+                <div className="relative w-80 -mb-1.5">
                   <label htmlFor={field} className="block mb-0.5 text-white text-sm sm:text-base">
                     {field === "confirmPassword"
                       ? "Confirm Password"
@@ -186,7 +187,7 @@ function Signup() {
                 boxShadow: "0px 0px 20px 4px rgba(255,255,255,0.3)",
               }}
               whileTap={{ scale: 0.9 }}
-              className="w-full sm:w-40 mt-2 bg-purple-600 hover:bg-purple-700 transition font-bold py-3 rounded-xl"
+              className="w-40 ml-18 mt-1 bg-purple-600 hover:bg-purple-700 transition font-bold py-3 rounded-xl"
             >
               Create Account
             </motion.button>
