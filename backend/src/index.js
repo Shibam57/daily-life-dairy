@@ -2,7 +2,7 @@ require('dotenv').config()
 const connectDB = require('./db/mongooDB.js')
 const app = require('./app.js')
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 connectDB().then(()=>{
     app.listen(port, ()=>{

@@ -38,38 +38,33 @@ const registerUser = asyncHandler(async(req, res)=>{
         $or: [{username}, {email}]
     })
 
-    if(existingUser){
-        throw new ApiError(400, "Username or email already exists")
+    if (existingUser) {
+    if (existingUser.isVerified) {
+      throw new ApiError(400, "Username or email already exists");
+    } else {
+      // User exists but NOT verified, update data & resend verification
+      const verificationToken = crypto.randomBytes(32).toString("hex");
+
+      existingUser.username = username;
+      existingUser.fullname = fullname;
+      existingUser.password = password;
+      existingUser.avatar = avatar.secure_url;
+      existingUser.verificationToken = verificationToken;
+
+      await existingUser.save({ validateBeforeSave: true });
+
+      const verificationURL = `${process.env.CLIENT_URL}/verify-email/${verificationToken}`;
+      await sendEmail({
+        to: existingUser.email,
+        subject: "Verify your email",
+        html: `<h2>Welcome back ${fullname}</h2>
+              <p>Please verify your email by clicking the link below:</p>
+              <a href="${verificationURL}">${verificationURL}</a>`
+      });
+
+      return res.status(200).json(new ApiResponse(200, existingUser.select("-password"), "Account exists but not verified. New verification email sent."));
     }
-
-    if(existingUser && !existingUser.isVerified){
-        const avatar = await uploadOnCloudinary(avatarLocalPath); 
-
-        if(!avatar) {
-            throw new ApiError(500, "Failed to upload avatar")
-        }
-
-        const verificationToken= crypto.randomBytes(32).toString("hex");
-
-        existingUser.username = username;
-        existingUser.fullname = fullname;
-        existingUser.password = password;
-        existingUser.avatar = avatar.secure_url;
-        existingUser.verificationToken = verificationToken;
-
-        await existingUser.save({validateBeforeSave: true});
-
-        const verificationURL = `${process.env.CLIENT_URL}/verify-email/${verificationToken}`
-        await sendEmail({
-            to: existingUser.email,
-            subject: "Verify your email",
-            html: `<h2>Welcome back ${fullname}</h2>
-            <p>Please verify your email by clicking the link below:</p>
-            <a href="${verificationURL}">${verificationURL}</a>`
-        });
-
-        return res.status(200).json(new ApiResponse(200, existingUser.select("-password"), "Account exists but not verified. New verification email sent."));
-    }
+  }
 
     const avatarLocalPath = req.files?.avatar?.[0]?.path;
 
