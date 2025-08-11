@@ -118,8 +118,8 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ verificationToken: token });
 
-  if (!user) {
-    throw new ApiError(400, "Invalid or expired verification token");
+  if (user) {
+    res.redirect(`${process.env.CLIENT_URL}/login?verified=true`);
   }
 
   user.isVerified = true;
