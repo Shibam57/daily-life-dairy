@@ -57,12 +57,12 @@ function Navbar({ onSearchResults }) {
       {/* Logo */}
       <div className="font-bold flex items-center">
         <Link to="/" className="flex items-center space-x-1">
-          <img src={image} alt="notesLife" className="h-10 w-10" />
+          <img src={image} alt="notesLife" className="h-10 w-15" />
           <h2 className="flex items-end font-serif">
             <span className="text-slate-200 text-xl sm:text-xl italic">
               notes.
             </span>
-            <span className="text-slate-900 text-sm sm:text-sm ml-1 italic font-extrabold">
+            <span className="text-slate-900 text-sm sm:text-sm italic font-extrabold">
               life
             </span>
           </h2>
@@ -128,7 +128,7 @@ function Navbar({ onSearchResults }) {
       </div>
 
       {/* Mobile Hamburger */}
-      <div className="flex md:hidden items-center gap-2">
+      <div className="flex md:hidden items-center">
     {isLoggedIn && (
       <SearchBar
         value={searchQuery}
