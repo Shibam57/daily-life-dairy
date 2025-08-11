@@ -118,7 +118,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ verificationToken: token });
 
-  if (user) {
+  if (!user) {
     res.redirect(`${process.env.CLIENT_URL}/login?verified=true`);
   }
 
