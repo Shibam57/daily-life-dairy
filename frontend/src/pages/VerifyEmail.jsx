@@ -14,7 +14,7 @@ const VerifyEmail = () => {
 
                 if(data.success){
                     toast.success("Email verified! You can now login.");
-                    navigate('/login?verified=true');
+                    navigate('/login');
                 }
                 else{
                     toast.error(data.message || "Verification failed.")
