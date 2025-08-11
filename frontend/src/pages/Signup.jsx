@@ -74,7 +74,7 @@ function Signup() {
       if(result.success){
         toast.success("Account created! Please check your email to verify.", {
           autoClose: 2000,
-          onClose: () => navigate('/verifyEmail')
+          onClose: () => navigate('/verify-email')
         });
       }
       else{

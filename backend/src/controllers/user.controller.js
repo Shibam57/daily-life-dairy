@@ -119,7 +119,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const user = await User.findOne({ verificationToken: token });
 
   if (!user) {
-    throw new ApiError(400, "Verification token missing");
+    res.redirect(`${process.env.CLIENT_URL}/login?verified=true`);
   }
 
   user.isVerified = true;
@@ -127,7 +127,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
   await user.save({ validateBeforeSave: false });
 
-  res.redirect(`${process.env.CLIENT_URL}/login?verified=true`);
+  res.status(200).json(new ApiResponse(200, {}, "Email verified successfully"));
 });
 
 const loginUser = asyncHandler(async(req, res)=>{
