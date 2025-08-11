@@ -59,10 +59,10 @@ function Navbar({ onSearchResults }) {
         <Link to="/" className="flex items-center space-x-1">
           <img src={image} alt="notesLife" className="h-10 w-10" />
           <h2 className="flex items-end font-serif">
-            <span className="text-slate-200 text-xl sm:text-2xl italic">
+            <span className="text-slate-200 text-xl sm:text-xl italic">
               notes.
             </span>
-            <span className="text-slate-900 text-sm sm:text-md ml-1 italic font-extrabold">
+            <span className="text-slate-900 text-sm sm:text-sm ml-1 italic font-extrabold">
               life
             </span>
           </h2>
@@ -138,7 +138,7 @@ function Navbar({ onSearchResults }) {
       />
     )}
     <button onClick={() => setMenuOpen(!menuOpen)}>
-      {menuOpen ? <X className="text-white" size={28} /> : <Menu className="text-white" size={28} />}
+      {menuOpen ? <X className="text-white" size={25} /> : <Menu className="text-white" size={25} />}
     </button>
   </div>
 
@@ -170,11 +170,6 @@ function Navbar({ onSearchResults }) {
                   <div className="mb-4">
                     <NavProfile userInfo={userInfo} onLogout={handleLogout} />
                   </div>
-
-                  {/* Search in middle */}
-                  <div className="mb-6">
-                   
-                  </div>
                 </>
               )}
 
@@ -195,7 +190,7 @@ function Navbar({ onSearchResults }) {
                 ) : (
                   <>
                     <Link to="/login" onClick={() => setMenuOpen(false)}>
-                      <motion.button className="w-full px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition">
+                      <motion.button className="w-full px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition mb-4">
                         Login
                       </motion.button>
                     </Link>
