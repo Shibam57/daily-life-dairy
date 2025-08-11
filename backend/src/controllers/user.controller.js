@@ -127,7 +127,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
   await user.save({ validateBeforeSave: false });
 
-  res.redirect(`${process.env.CLIENT_URL}/verify-email-success`);
+  res.redirect(`${process.env.CLIENT_URL}/login?verified=true`);
 });
 
 const loginUser = asyncHandler(async(req, res)=>{
